@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.default = undefined;
+exports.createPerHourCsv = exports.createCountCsv = undefined;
 
 var _csv = require('./lib/csv');
 
@@ -19,7 +19,7 @@ function mergeDedupe(arr) {
     return [].concat(_toConsumableArray(new Set((_ref = []).concat.apply(_ref, _toConsumableArray(arr)))));
 }
 
-function createCsv(val) {
+function createCountCsv(val) {
 
     var species = val.species;
     var years = Object.keys(species).sort();
@@ -51,4 +51,37 @@ function createCsv(val) {
     return (0, _csv2.default)(csvArr).split('\n').slice(1).join('\n');
 }
 
-exports.default = createCsv;
+function createPerHourCsv(val) {
+
+    var species = val.species;
+    var years = Object.keys(species).sort();
+    var csvArr = [];
+    var taxa = [];
+
+    csvArr.push(['Species'].concat(years));
+
+    years.forEach(function (year) {
+
+        var yearTaxa = Object.keys(species[year]);
+
+        taxa = mergeDedupe([taxa, yearTaxa]);
+    });
+
+    taxa.forEach(function (val) {
+
+        var name = val;
+        var row = [name];
+
+        years.forEach(function (year) {
+
+            species[year][name] ? row.push(species[year][name].perHour.emit()) : row.push(null);
+        });
+
+        csvArr.push(row);
+    });
+
+    return (0, _csv2.default)(csvArr).split('\n').slice(1).join('\n');
+}
+
+exports.createCountCsv = createCountCsv;
+exports.createPerHourCsv = createPerHourCsv;
