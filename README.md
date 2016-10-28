@@ -1,5 +1,5 @@
 # CSV Generator for Audubon CBC Data (audubon-cbc-csv)
-####v0.1.0
+####v0.2.1
 
 A Node.js module for create CSVs with improved formatting for the [Audubon's Christmas Bird Count](http://netapp.audubon.org/CBCObservation/).
 
