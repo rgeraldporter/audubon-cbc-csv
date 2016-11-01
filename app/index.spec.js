@@ -21,6 +21,17 @@ describe('the cbc-csv function', function () {
         expect(lastLine).toBe('"Yellow-rumped Warbler (Myrtle)","cw",6,0,5,1,3,3');
     });
 
+    it('should make a csv string that is reversed out of total count data', function () {
+
+        // start with test data
+        var countData = (0, _audubonCbcCsvParser2.default)('src/test.csv');
+        var csv = (0, _index.createCountReverseCsv)(countData);
+        var lines = csv.split('\n');
+        var lastLine = lines[lines.length - 1];
+
+        expect(lastLine).toBe('"Yellow-rumped Warbler (Myrtle)",3,3,1,5,0,6,"cw"');
+    });
+
     it('should make a csv string out of per-hour data', function () {
 
         // start with test data

@@ -1,4 +1,4 @@
-import {createCountCsv, createPerHourCsv} from './index';
+import {createCountCsv, createPerHourCsv, createCountReverseCsv} from './index';
 import cbcParse from 'audubon-cbc-csv-parser';
 
 describe('the cbc-csv function', () => {
@@ -12,6 +12,17 @@ describe('the cbc-csv function', () => {
         const lastLine = lines[lines.length - 1];
 
         expect(lastLine).toBe('"Yellow-rumped Warbler (Myrtle)","cw",6,0,5,1,3,3');
+    });
+
+    it('should make a csv string that is reversed out of total count data', () => {
+
+        // start with test data
+        const countData = cbcParse('src/test.csv');
+        const csv = createCountReverseCsv(countData);
+        const lines = csv.split('\n');
+        const lastLine = lines[lines.length - 1];
+
+        expect(lastLine).toBe('"Yellow-rumped Warbler (Myrtle)",3,3,1,5,0,6,"cw"');
     });
 
     it('should make a csv string out of per-hour data', () => {
