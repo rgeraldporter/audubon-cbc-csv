@@ -2,11 +2,15 @@
 
 var _index = require('./index');
 
+var cbcCsv = _interopRequireWildcard(_index);
+
 var _audubonCbcCsvParser = require('audubon-cbc-csv-parser');
 
 var _audubonCbcCsvParser2 = _interopRequireDefault(_audubonCbcCsvParser);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 describe('the cbc-csv function', function () {
 
@@ -14,7 +18,7 @@ describe('the cbc-csv function', function () {
 
         // start with test data
         var countData = (0, _audubonCbcCsvParser2.default)('src/test.csv');
-        var csv = (0, _index.createCountCsv)(countData);
+        var csv = cbcCsv.createCountCsv(countData);
         var lines = csv.split('\n');
         var lastLine = lines[lines.length - 1];
 
@@ -25,7 +29,7 @@ describe('the cbc-csv function', function () {
 
         // start with test data
         var countData = (0, _audubonCbcCsvParser2.default)('src/test.csv');
-        var csv = (0, _index.createCountReverseCsv)(countData);
+        var csv = cbcCsv.createCountReverseCsv(countData);
         var lines = csv.split('\n');
         var lastLine = lines[lines.length - 1];
 
@@ -36,10 +40,21 @@ describe('the cbc-csv function', function () {
 
         // start with test data
         var countData = (0, _audubonCbcCsvParser2.default)('src/test.csv');
-        var csv = (0, _index.createPerHourCsv)(countData);
+        var csv = cbcCsv.createPerHourCsv(countData);
         var lines = csv.split('\n');
         var lastLine = lines[lines.length - 1];
 
         expect(lastLine).toBe('"Yellow-rumped Warbler (Myrtle)",0,0.0309,0,0.0219,0.0051,0.0165,0.0167');
+    });
+
+    it('should make a csv string out of per-hour data', function () {
+
+        // start with test data
+        var countData = (0, _audubonCbcCsvParser2.default)('src/test.csv');
+        var csv = cbcCsv.createPerHourReverseCsv(countData);
+        var lines = csv.split('\n');
+        var lastLine = lines[lines.length - 1];
+
+        expect(lastLine).toBe('"Yellow-rumped Warbler (Myrtle)",0.0167,0.0165,0.0051,0.0219,0,0.0309,0');
     });
 });

@@ -1,4 +1,4 @@
-import {createCountCsv, createPerHourCsv, createCountReverseCsv} from './index';
+import * as cbcCsv from './index';
 import cbcParse from 'audubon-cbc-csv-parser';
 
 describe('the cbc-csv function', () => {
@@ -7,7 +7,7 @@ describe('the cbc-csv function', () => {
 
         // start with test data
         const countData = cbcParse('src/test.csv');
-        const csv = createCountCsv(countData);
+        const csv = cbcCsv.createCountCsv(countData);
         const lines = csv.split('\n');
         const lastLine = lines[lines.length - 1];
 
@@ -18,7 +18,7 @@ describe('the cbc-csv function', () => {
 
         // start with test data
         const countData = cbcParse('src/test.csv');
-        const csv = createCountReverseCsv(countData);
+        const csv = cbcCsv.createCountReverseCsv(countData);
         const lines = csv.split('\n');
         const lastLine = lines[lines.length - 1];
 
@@ -29,10 +29,21 @@ describe('the cbc-csv function', () => {
 
         // start with test data
         const countData = cbcParse('src/test.csv');
-        const csv = createPerHourCsv(countData);
+        const csv = cbcCsv.createPerHourCsv(countData);
         const lines = csv.split('\n');
         const lastLine = lines[lines.length - 1];
 
         expect(lastLine).toBe('"Yellow-rumped Warbler (Myrtle)",0,0.0309,0,0.0219,0.0051,0.0165,0.0167');
+    });
+
+    it('should make a csv string out of per-hour data', () => {
+
+        // start with test data
+        const countData = cbcParse('src/test.csv');
+        const csv = cbcCsv.createPerHourReverseCsv(countData);
+        const lines = csv.split('\n');
+        const lastLine = lines[lines.length - 1];
+
+        expect(lastLine).toBe('"Yellow-rumped Warbler (Myrtle)",0.0167,0.0165,0.0051,0.0219,0,0.0309,0');
     });
 });

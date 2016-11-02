@@ -69,6 +69,38 @@ function createCountCsv(val) {
     return toCsv(csvArr).split('\n').slice(1).join('\n');
 }
 
+function createPerHourReverseCsv(val) {
+
+    const species = val.species;
+    const years = Object.keys(species).sort().reverse();
+    const csvArr = [];
+    let taxa = [];
+
+    csvArr.push(['Species'].concat(years));
+
+    years.forEach(year => {
+
+        const yearTaxa = Object.keys(species[year]);
+
+        taxa = mergeDedupe([taxa, yearTaxa]);
+    });
+
+    taxa.forEach(val => {
+
+        const name = val;
+        const row = [name];
+
+        years.forEach(year => {
+
+            species[year][name] ? row.push(species[year][name].perHour.emit()) : row.push(null);
+        });
+
+        csvArr.push(row);
+    });
+
+    return toCsv(csvArr).split('\n').slice(1).join('\n');
+}
+
 function createPerHourCsv(val) {
 
     const species = val.species;
@@ -101,4 +133,4 @@ function createPerHourCsv(val) {
     return toCsv(csvArr).split('\n').slice(1).join('\n');
 }
 
-export {createCountCsv, createPerHourCsv, createCountReverseCsv};
+export {createCountCsv, createPerHourCsv, createCountReverseCsv, createPerHourReverseCsv};

@@ -1,5 +1,5 @@
 # CSV Generator for Audubon CBC Data (audubon-cbc-csv)
-####v0.3.0
+####v0.4.0
 
 A Node.js module for create CSVs with improved formatting for the [Audubon's Christmas Bird Count](http://netapp.audubon.org/CBCObservation/).
 
@@ -20,12 +20,13 @@ npm install audubon-cbc-csv
 ```
 // requires audubon-cbc-csv-parser
 import cbcParse from 'audubon-cbc-csv-parser';
-import {createCountCsv, createPerHourCsv, createCountReverseCsv} from 'audubon-cbc-csv';
+import * as cbcCsv from 'audubon-cbc-csv';
 
 const countData = cbcParse('src/test.csv');
-const csv = createCountCsv(countData); // count totals -- oldest to newest
-const csvReverse = createCountReverseCsv(countData); // count totals -- newest to oldest
-const csvPerHour = createPerHourCsv(countData); // count per hour averages
+const csv = cbcCsv.createCountCsv(countData); // count totals -- oldest to newest
+const csvReverse = cbcCsv.createCountReverseCsv(countData); // count totals -- newest to oldest
+const csvPerHour = cbcCsv.createPerHourCsv(countData); // count per hour averages
+const csvPerReverseHour = cbcCsv.createPerHourReverseCsv(countData); // count per hour averages
 ```
 
 ## Additional Terms of Use
