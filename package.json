@@ -1,9 +1,9 @@
 {
   "name": "audubon-cbc-csv",
   "preferGlobal": false,
-  "version": "0.4.1",
+  "version": "1.0.0",
   "author": "Robert Gerald Porter <rob@inpictures.ca>",
-  "description": "Converts Audubon CBC data into clean CSV files.",
+  "description": "Converts Audubon Chistmas Bird Count datasets into clean, easy to read CSV files.",
   "main": "./app/index.js",
   "contributors": [
     "Robert Gerald Porter <rob@inpictures.ca>"
